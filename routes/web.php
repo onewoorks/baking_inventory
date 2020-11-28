@@ -16,3 +16,17 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => '/ref'], function () use ($router) {
+    $router->get('/supplier', ['uses' => 'References\SuppliersController@GetAllSuppliers']);
+    $router->post('/supplier', ['uses' => 'References\SuppliersController@AddNewSupplier']);
+
+    $router->get('/category', ['uses' => 'References\CategoryController@GetAllCategories']);
+    $router->get('/category/{id}', ['uses' => 'References\CategoryController@GetCategoryById']);
+    $router->post('/category', ['uses' => 'References\CategoryController@AddNewCategory']);
+
+});
+
+$router->group(['prefix' => '/inventory'], function () use ($router){
+    $router->post('/supplier', ['uses' => 'References\SuppliersController@AddNewSupplier']);
+});
